@@ -1,9 +1,73 @@
 import React from 'react';
 import $ from 'jquery';
 import { Component } from 'react/cjs/react.production.min';
+import axios from 'axios';
 
 const Python = () => {
     
+    const python_post = () => {
+        let python_version = $("select[name='python_version']").val();
+        let library_name = $("input[name='library_name']").val();
+        let library_version = $("input[name='library_version']").val();
+        console.log(python_version, library_name, library_version);
+        let data = JSON.stringify({langversion : python_version,
+            name : library_name,
+            version : library_version});
+        let options = {
+            headers: {"content-type" : "application/json"}
+        };
+        axios.post('http://52.231.26.131:1323/python', data, options)
+        .then((response) => {
+            console.log(response);
+        }).catch((error)=>{
+            console.log(error);
+        });
+
+        // const link = 'http://localhost:3000';
+        // const option = {
+        //     url = 'http://loclahost:3000/'
+        //     method:'POST',
+        //     header : {
+        //         'Acceptc' : 'application/json',
+        //         'Content-Type' : 'application/json;charset=UTF-9'
+        //     },
+        //     data: {
+        //         langversion : python_version,
+        //         name : library_name,
+        //         version : library_version
+        //     }
+        // }
+
+        // axios(option)
+        //     .then(response => console.log(response));
+
+        // let link = 'http://localhost:3000/';
+        // let body = {
+        //     langversion : python_version,
+        //     name : library_name,
+        //     version : library_version
+        // };
+        // console.log(body);
+        // function handleSuccess(data) { console.log(data); }
+        // function handleFailure(data) { console.log('error', data); }
+        // axios.get(link,  body)
+        //     .then(handleSuccess)
+        //     .catch(handleFailure)
+
+        // axios({
+        //     url: 'http://localhost:3000',
+        //     method : 'get',
+        //     data : {
+        //         langversion : python_version,
+        //         name : library_name,
+        //         version : library_version
+        //     }
+        // }).then (response => console.log(response));
+
+
+    }
+    
+      
     function inputCheck() {
         let arr = $("input");
         let check = true;
@@ -27,7 +91,7 @@ const Python = () => {
     let url = "/";
     return(
         
-        <form action="/python/search" method="post" id="input_form">
+        <div id="input_form">
             <a href={url} id="back_btn"><i className="fas fa-arrow-left"></i></a>
             <img src={require('../img/python_file.png')} width="70"alt="python_file"/>
             <p>파이썬 라이브러리의 세부사항을 입력하세요.</p>
@@ -50,9 +114,9 @@ const Python = () => {
                 </li>
             </ul>
             <button type="button" className="btn" onClick={inputCheck}>GO</button>
-            <button type="submit" className="dn"></button>
+            <button type="submit" onClick={python_post} className="dn"></button>
             <Bubble msg={"비워진 값이 존재합니다. \n 모두 입력해주세요."} ></Bubble>
-        </form>
+        </div>
     );
 };
 
