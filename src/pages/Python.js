@@ -18,55 +18,34 @@ const Python = () => {
         };
         axios.post('http://52.231.26.131:1323/python', data, options)
         .then((response) => {
-            console.log(response);
+            if(response.data === "버전을 확인해주세요"){
+                warning_msg(response.data);
+            }else {
+                open_success("성공적으로 업로드하였습니다.");
+            }
         }).catch((error)=>{
             console.log(error);
         });
 
-        // const link = 'http://localhost:3000';
-        // const option = {
-        //     url = 'http://loclahost:3000/'
-        //     method:'POST',
-        //     header : {
-        //         'Acceptc' : 'application/json',
-        //         'Content-Type' : 'application/json;charset=UTF-9'
-        //     },
-        //     data: {
-        //         langversion : python_version,
-        //         name : library_name,
-        //         version : library_version
-        //     }
-        // }
-
-        // axios(option)
-        //     .then(response => console.log(response));
-
-        // let link = 'http://localhost:3000/';
-        // let body = {
-        //     langversion : python_version,
-        //     name : library_name,
-        //     version : library_version
-        // };
-        // console.log(body);
-        // function handleSuccess(data) { console.log(data); }
-        // function handleFailure(data) { console.log('error', data); }
-        // axios.get(link,  body)
-        //     .then(handleSuccess)
-        //     .catch(handleFailure)
-
-        // axios({
-        //     url: 'http://localhost:3000',
-        //     method : 'get',
-        //     data : {
-        //         langversion : python_version,
-        //         name : library_name,
-        //         version : library_version
-        //     }
-        // }).then (response => console.log(response));
-
-
     }
     
+    function warning_msg(msg) {
+        if(msg != null) {
+            $(".bubble_text > p").text(msg);
+        }
+        open_warning();
+    }
+    function open_warning() {
+        let bubble = document.querySelector(".bubble_base.warning");
+        $(bubble).fadeIn(500);
+    }
+    function open_success(msg) {
+        if(msg != null) {
+            $(".bubble_text > p").text(msg);
+        }
+        let bubble = document.querySelector(".bubble_base.success");
+        $(bubble).fadeIn(500);
+    }
       
     function inputCheck() {
         let arr = $("input");
@@ -75,8 +54,7 @@ const Python = () => {
             let input = arr[i].value;
             $(arr[i]).css({"box-shadow" : "0px 0px 30px 0px #1d70b333"});        
             if(input === "" || input === null) {
-                let bubble = document.querySelector(".bubble_base");
-                $(bubble).fadeIn(500);
+                warning_msg("비워진 값이 존재합니다. \n 모두 입력해주세요.");
                 $(arr[i]).css({"box-shadow" : " 0 0 5px 0px rgba(255, 0, 0, 0.534)"});
                 check = !check;
                 break;
@@ -115,23 +93,47 @@ const Python = () => {
             </ul>
             <button type="button" className="btn" onClick={inputCheck}>GO</button>
             <button type="submit" onClick={python_post} className="dn"></button>
-            <Bubble msg={"비워진 값이 존재합니다. \n 모두 입력해주세요."} ></Bubble>
+            <WarningBubble msg={"비워진 값이 존재합니다. \n 모두 입력해주세요." } ></WarningBubble>
+            <SuccessBubble msg={"성공적으로 업로드하였습니다."}></SuccessBubble>
         </div>
     );
 };
 
+class SuccessBubble extends Component {
+    render() {
+        function closeBubble() {
+    
+            let bubble = document.querySelector(".bubble_base.success");
+            
+            $(bubble).fadeOut(500);
+        }
 
-class Bubble extends Component {
+        return(
+            <div className='bubble_base success'>
+                <div id="bubble_back" onClick={closeBubble}></div>
+                <div className="bubble_text">
+                    <i className="fas fa-check-circle"></i>
+                    <p>{this.props.msg}</p>
+                    <button type="button" className="btn" onClick={closeBubble}>닫기</button>
+                </div>
+            </div>
+        );
+    }
+
+}
+
+class WarningBubble extends Component {
     
     render() {
         function closeBubble() {
     
-            let bubble = document.querySelector(".bubble_base");
+            let bubble = document.querySelector(".bubble_base.warning");
             
             $(bubble).fadeOut(500);
         }
+        
         return (
-            <div className='bubble_base'>
+            <div className='bubble_base warning'>
                 <div id="bubble_back" onClick={closeBubble}></div>
                 <div className="bubble_text warning">
                     <i className="fas fa-exclamation-triangle"></i>

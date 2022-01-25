@@ -136,7 +136,6 @@ body  {
   transition: .3s;
   padding: 8px 21px;
 }
-
 .warning_btn:hover {
   color: #f00;
   background-color: #fff;
@@ -345,12 +344,17 @@ body  {
   padding: 50px;
   text-align: center;
 }
-.bubble_text.warning > i{
-  color: #f00;
+.bubble_text > i {
   font-size: 32px;
   margin-bottom: 25px;
 }
-.bubble_text.warning > p {
+.bubble_base.warning > .bubble_text > i{
+  color: #f00;
+}
+.bubble_base.success > .bubble_text > i {
+  color: #008dff;
+}
+.bubble_text > p {
   font-size: 21px;
   line-height: 1.7;
 }

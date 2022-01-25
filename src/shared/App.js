@@ -4,11 +4,6 @@ import Home from '../pages/Home';
 import Python from '../pages/Python';
 import Maven from '../pages/Maven';
 
-import $ from 'jquery';
-
-// import jQuery from "jquery";
-
-// window.$ = window.jQuery = jQuery;
 
 class App extends Component {
     
