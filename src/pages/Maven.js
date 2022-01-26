@@ -10,15 +10,28 @@ const Maven = () => {
         if($("textarea").val() !== ""){
             file_str = $("textarea").val();
         }
-
-        axios.post('http://52.231.26.131:1323/java/mvn?name=rlaekals', null, {params: {
-            file_str
-        }})
-        .then((response) => {
-            console.log(response);
-        }).catch((error)=>{
-            console.log(error);
-        });
+        var fff = $("#file")[0].files;
+        var reader = new FileReader();
+        reader.onload = function(e){
+            var arrayBuffer = e.target.result;
+            axios.post('http://52.231.26.131:1323/java/mvn?name=rlaekals', null, {params: {
+                file : arrayBuffer
+            }})
+            .then((response) => {
+                console.log(response);
+            }).catch((error)=>{
+                console.log(error);
+            });
+        }
+        reader.readAsArrayBuffer(fff[0]);
+        // axios.post('http://52.231.26.131:1323/java/mvn?name=rlaekals', null, {params: {
+        //     file_str
+        // }})
+        // .then((response) => {
+        //     console.log(response);
+        // }).catch((error)=>{
+        //     console.log(error);
+        // });
     };
     
     function mavenCheck() {
