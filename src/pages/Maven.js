@@ -92,23 +92,35 @@ const Maven = () => {
         let bubble = document.querySelector(".bubble_base.success");
         $(bubble).fadeIn(500);
     }
-
+    warning_msg("현재 이용할 수 없는 서비스 입니다.");
+    $("#back_btn").click();
     let url = "/";
     return (
-        <div id="input_form">
+        
+        // <div id="input_form">
+        //     <a href={url} id="back_btn"><i className="fas fa-arrow-left"></i></a>
+        //     <img src={require('../img/xml.png')} alt=""/>
+        //     <p>pom.xml 파일을 첨부 또는 내용을 복사해주세요.</p>
+        //     <div className="file_box">
+        //         <input type="text" id="file_input" readOnly placeholder="첨부된 파일 없음"/>
+        //         <label htmlFor="file">Browse</label>
+        //     </div>
+        //     <input type="file" name="file" id="file" className="dn" onChange={fileChange}/>
+        //     <textarea name="txt" id="" cols="30" rows="10" placeholder="Copy here" onInput={texting}></textarea>
+        //     <button type="button" className="btn" onClick={mavenCheck}>GO</button>
+        //     <button type="submit" className="dn" onClick={maven_post}></button>
+        //     <WarningBubble msg={"비워진 값이 존재합니다. \n 모두 입력해주세요." } ></WarningBubble>
+        //     <SuccessBubble msg={"성공적으로 업로드하였습니다."}></SuccessBubble>
+        // </div>
+       <div id="input_form">
             <a href={url} id="back_btn"><i className="fas fa-arrow-left"></i></a>
-            <img src={require('../img/xml.png')} alt=""/>
-            <p>pom.xml 파일을 첨부 또는 내용을 복사해주세요.</p>
-            <div className="file_box">
-                <input type="text" id="file_input" readOnly placeholder="첨부된 파일 없음"/>
-                <label htmlFor="file">Browse</label>
-            </div>
-            <input type="file" name="file" id="file" className="dn" onChange={fileChange}/>
-            <textarea name="txt" id="" cols="30" rows="10" placeholder="Copy here" onInput={texting}></textarea>
-            <button type="button" className="btn" onClick={mavenCheck}>GO</button>
-            <button type="submit" className="dn" onClick={maven_post}></button>
-            <WarningBubble msg={"비워진 값이 존재합니다. \n 모두 입력해주세요." } ></WarningBubble>
-            <SuccessBubble msg={"성공적으로 업로드하였습니다."}></SuccessBubble>
+            <i className="fas fa-hourglass-half"></i>
+            <h1>서비스 <b>준비 중</b> 입니다.</h1>
+            <p>
+                보다 나은 서비스 제공을 위하여 페이지 준비중에 있습니다. <br/>
+                빠른 시일 내에 준비하여 찾아뵙겠습니다.
+            </p>
+            
         </div>
     );
 };

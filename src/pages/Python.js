@@ -4,7 +4,7 @@ import { Component } from 'react/cjs/react.production.min';
 import axios from 'axios';
 
 const Python = () => {
-    
+    let time;
     const python_post = () => {
         let python_version = $("select[name='python_version']").val();
         let library_name = $("input[name='library_name']").val();
@@ -18,10 +18,13 @@ const Python = () => {
         };
         axios.post('http://52.231.26.131:1323/python', data, options)
         .then((response) => {
-            if(response.data === "버전을 확인해주세요"){
-                warning_msg(response.data);
+            $("#loading").css({"visibility" : "hidden"});
+            $("#loading").css({"opacity" : 0});
+            console.log(response.data.status_code);
+            if(response.data.status_code === "false"){
+                warning_msg(response.data.message);
             }else {
-                open_success("성공적으로 업로드하였습니다.");
+                open_success(response.data.message);
             }
         }).catch((error)=>{
             console.log(error);
@@ -61,6 +64,8 @@ const Python = () => {
             }
         }
         if(check) {
+            $("#loading").css({"visibility" : "visible"});
+            $("#loading").css({"opacity" : 1});
             $("button[type='submit']").click();
         }
         
@@ -70,6 +75,15 @@ const Python = () => {
     return(
         
         <div id="input_form">
+            <div id="loading">
+                <div className="lds-ellipsis">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+                <p>Loading..</p>
+            </div>
             <a href={url} id="back_btn"><i className="fas fa-arrow-left"></i></a>
             <img src={require('../img/python_file.png')} width="70"alt="python_file"/>
             <p>파이썬 라이브러리의 세부사항을 입력하세요.</p>
