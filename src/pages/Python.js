@@ -16,7 +16,7 @@ const Python = () => {
         let options = {
             headers: {"content-type" : "application/json"}
         };
-        axios.post('http://52.231.26.131:1323/python', data, options)
+        axios.post('http://10.62.52.32:1323/python', data, options)
         .then((response) => {
             $("#loading").css({"visibility" : "hidden"});
             $("#loading").css({"opacity" : 0});
