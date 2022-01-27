@@ -379,6 +379,7 @@ body  {
   z-index: 55;
   visibility: hidden;
   opacity: 0;
+  transition: .5s;
 }
 #loading > p {
   color: #fff;

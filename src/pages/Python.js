@@ -4,7 +4,7 @@ import { Component } from 'react/cjs/react.production.min';
 import axios from 'axios';
 
 const Python = () => {
-    let time;
+    
     const python_post = () => {
         let python_version = $("select[name='python_version']").val();
         let library_name = $("input[name='library_name']").val();
