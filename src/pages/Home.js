@@ -4,7 +4,6 @@ import React from 'react';
 const Home = () => {
     
     function maven(e) {
-        console.log("asdf");
         window.location.href="/maven";
     }
     function python(e) {
@@ -24,7 +23,6 @@ const Home = () => {
                 <div className="select_box" onClick={maven}>
                     <img src={require('../img/maven.png')} alt="maven"/>
                     <p>Maven Project</p>
-                    
                 </div>
             </div>
         </div>

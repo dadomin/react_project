@@ -18,7 +18,7 @@ class App extends Component {
                             <Route exact path="/" element={<Home/>}></Route>
                             <Route path="/python" element={<Python />}></Route>
                             <Route path="/maven" element={<Maven />}></Route>
-                            <Route path="/python/search" element ={<Python />} />
+                            
                         </Routes>
                     </BrowserRouter>
                 </section>

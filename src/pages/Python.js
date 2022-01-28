@@ -27,6 +27,9 @@ const Python = () => {
                 open_success(response.data.message);
             }
         }).catch((error)=>{
+            $("#loading").css({"visibility" : "hidden"});
+            $("#loading").css({"opacity" : 0});
+            warning_msg("로딩시간이 너무 지연되었습니다.");
             console.log(error);
         });
 
