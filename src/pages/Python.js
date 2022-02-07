@@ -2,42 +2,59 @@ import React from 'react';
 import $ from 'jquery';
 import { Component } from 'react/cjs/react.production.min';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
+import { useState } from 'react';
 
 const Python = () => {
-    
+
+    const [pythonVersion, setPythonVersion] = useState("");
+    const handlePythonVersion = (e) => setPythonVersion(e.target.value);
+
+    const [libraryName, setLibraryName] = useState("");
+    const handleLibaaryName = (e) => setLibraryName(e.target.value);
+
+    const [libraryVersion, setLibraryVersion] = useState("");
+    const handleLibraryVersion = (e) => setLibraryVersion(e.target.value);
+
     const python_post = () => {
-        let python_version = $("select[name='python_version']").val();
-        let library_name = $("input[name='library_name']").val();
-        let library_version = $("input[name='library_version']").val();
-        console.log(python_version, library_name, library_version);
-        let data = JSON.stringify({langversion : python_version,
-            name : library_name,
-            version : library_version});
+        
+        console.log(pythonVersion, libraryName, libraryVersion);
+        let data = JSON.stringify({
+            langversion : pythonVersion,
+            name : libraryName,
+            version : libraryVersion
+        });
         let options = {
             headers: {"content-type" : "application/json"}
         };
-        axios.post('http://10.62.52.32:1323/python', data, options)
-        .then((response) => {
-            $("#loading").css({"visibility" : "hidden"});
-            $("#loading").css({"opacity" : 0});
-            console.log(response.data.status_code);
-            if(response.data.status_code === "false"){
-                warning_msg(response.data.message);
-            }else {
-                open_success(response.data.message);
-            }
-        }).catch((error)=>{
-            $("#loading").css({"visibility" : "hidden"});
-            $("#loading").css({"opacity" : 0});
-            warning_msg("로딩시간이 너무 지연되었습니다.");
-            console.log(error);
-        });
+        axios
+            // .post('http://10.62.52.32:1323/python', data, options)
+            .post('http://52.231.26.131:1323/python', data, options)
+            .then((response) => {
+                disappear(document.getElementById("loading"));
+                console.log(response.data.status_code);
+                if(response.data.status_code === "false"){
+                    warning_msg(response.data.message);
+                }else {
+                    open_success(response.data.message); 
+                }
+            })
+            .catch((error)=>{
+                disappear(document.getElementById("loading"));
+                warning_msg("로딩시간이 너무 지연되었습니다.");
+                console.log(error);
+            });
 
+    }
+
+    function disappear(object) {
+        object.style.visibility = "hidden";
+        object.style.opacity = 0;
     }
     
     function warning_msg(msg) {
         if(msg != null) {
-            $(".bubble_text > p").text(msg);
+            document.querySelector(".bubble_text > p").innerText = msg;
         }
         open_warning();
     }
@@ -47,7 +64,7 @@ const Python = () => {
     }
     function open_success(msg) {
         if(msg != null) {
-            $(".bubble_text > p").text(msg);
+            document.querySelector(".bubble_text > p").innerText = msg;
         }
         let bubble = document.querySelector(".bubble_base.success");
         $(bubble).fadeIn(500);
@@ -74,7 +91,6 @@ const Python = () => {
         
     }
     
-    let url = "/";
     return(
         
         <div id="input_form">
@@ -87,25 +103,26 @@ const Python = () => {
                 </div>
                 <p>Loading..</p>
             </div>
-            <a href={url} id="back_btn"><i className="fas fa-arrow-left"></i></a>
+            <Link to={'/'}><i id="back_btn" className="fas fa-arrow-left"></i></Link>
             <img src={require('../img/python_file.png')} width="70"alt="python_file"/>
             <p>파이썬 라이브러리의 세부사항을 입력하세요.</p>
             <ul>
                 <li>
                     <span>Python version</span>
-                    <select name="python_version" id="">
-                        <option value="3.9">3.9</option>
+                    <select name="python_version" onChange={e => handlePythonVersion(e)} defaultValue={3.9}>
+                        
+                        <option value="3.9" >3.9</option>
                         <option value="3.7">3.7 or 3.8</option>
                         <option value="3.6">3.6</option>
                     </select>
                 </li>
                 <li>
                     <span>Library name</span>
-                    <input type="text" name="library_name" placeholder="Enter the library name"/>
+                    <input type="text" name="library_name" placeholder="Enter the library name" onInput={e => handleLibaaryName(e)}/>
                 </li>
                 <li>
                     <span>Library version</span>
-                    <input type="text" name="library_version" placeholder="Enter the library version"/>
+                    <input type="text" name="library_version" placeholder="Enter the library version" onInput={e => handleLibraryVersion(e)}/>
                 </li>
             </ul>
             <button type="button" className="btn" onClick={inputCheck}>GO</button>

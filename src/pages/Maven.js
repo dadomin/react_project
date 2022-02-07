@@ -2,6 +2,7 @@ import React from 'react';
 import $, { param } from 'jquery';
 import { Component } from 'react/cjs/react.production.min';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const Maven = () => {
     var file_str = "";
@@ -94,7 +95,7 @@ const Maven = () => {
     }
     warning_msg("현재 이용할 수 없는 서비스 입니다.");
     $("#back_btn").click();
-    let url = "/";
+    
     return (
         
         // <div id="input_form">
@@ -113,7 +114,7 @@ const Maven = () => {
         //     <SuccessBubble msg={"성공적으로 업로드하였습니다."}></SuccessBubble>
         // </div>
        <div id="input_form">
-            <a href={url} id="back_btn"><i className="fas fa-arrow-left"></i></a>
+            <Link to={"/"}><i id="back_btn" className="fas fa-arrow-left"></i></Link>
             <i className="fas fa-hourglass-half"></i>
             <h1>서비스 <b>준비 중</b> 입니다.</h1>
             <p>

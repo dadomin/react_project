@@ -232,8 +232,6 @@ body  {
   position: absolute;
   top: 30px;
   left: 30px;
-}
-#back_btn > i {
   color: #008dff;
   font-size: 21px;
 }
