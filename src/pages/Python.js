@@ -28,8 +28,8 @@ const Python = () => {
             headers: {"content-type" : "application/json"}
         };
         axios
-            // .post('http://10.62.52.32:1323/python', data, options)
-            .post('http://52.231.26.131:1323/python', data, options)
+            .post('http://10.62.52.32:1323/python', data, options)
+            // .post('http://52.231.26.131:1323/python', data, options)
             .then((response) => {
                 disappear(document.getElementById("loading"));
                 console.log(response.data.status_code);
