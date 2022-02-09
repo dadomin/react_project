@@ -7,7 +7,7 @@ import { useState } from 'react';
 
 const Python = () => {
 
-    const [pythonVersion, setPythonVersion] = useState("");
+    const [pythonVersion, setPythonVersion] = useState("3.9");
     const handlePythonVersion = (e) => setPythonVersion(e.target.value);
 
     const [libraryName, setLibraryName] = useState("");
@@ -28,8 +28,7 @@ const Python = () => {
             headers: {"content-type" : "application/json"}
         };
         axios
-            .post('http://10.62.52.32:1323/python', data, options)
-            // .post('http://52.231.26.131:1323/python', data, options)
+            .post(`http://${process.env.REACT_APP_PYTHON_HOST}/python`, data, options)
             .then((response) => {
                 disappear(document.getElementById("loading"));
                 console.log(response.data.status_code);
@@ -110,7 +109,6 @@ const Python = () => {
                 <li>
                     <span>Python version</span>
                     <select name="python_version" onChange={e => handlePythonVersion(e)} defaultValue={3.9}>
-                        
                         <option value="3.9" >3.9</option>
                         <option value="3.7">3.7 or 3.8</option>
                         <option value="3.6">3.6</option>
